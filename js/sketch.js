@@ -64,6 +64,18 @@ class Gen {
     return y*w + x;
   }
 
+  // 添字から座標を計算する関数
+  indexToXy(i) {
+
+    // セルの1辺の数を8固定ではない場合を想定した変数
+    let w = sqrt(this.cells.length)
+
+    let x = i%w;
+    let y = floor(i/8);
+
+    return [x,y];
+  }
+
   // 矩形を描画する
   draw() {
     // cellsの色
@@ -73,8 +85,8 @@ class Gen {
     stroke(0, 81, 146);
 
     for(let [i,c] of this.cells.entries()) {
-      let x = i%8;
-      let y = floor(i/8);
+
+      let [x,y] = this.indexToXy(i);
 
       // ひとつのセルのキャンバス上での幅を定義
       let w = height/8;
