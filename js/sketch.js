@@ -14,9 +14,44 @@ class Gen {
 
   // 次の世代を作る
   next() {
+
+    // 現世代
+    let t = this;
+
+    // 次世代
     let n = new Gen();
-    n.cells.fill(1);
+
+    for(let i < t.cells.length; i++) {
+      if (t.cells[i] === 0) {
+        // 現世代で死んでいるセルは……
+
+      } else {
+        // 現世代で生きているセルは……
+
+      }
+    }
+
     return n;
+  }
+
+  // 生きているセルを数える
+  livesAround(x,y) {
+
+    // (a,b)の位置にあるセルの生死を調べて生きているセルの合計を取る
+    for(let a=x-1; a<=y+1; a++) {
+      for(let a=x-1; a<=y+1; a++) {
+        
+
+      }
+    }
+  }
+
+
+  // 座標から添字に変換する関数
+  xyToIndex(x,y) {
+    let w = sqrt(this.cells.length);
+    if (x<0 || x>=w || y<0 || y>=w) return -1;
+    return y*w + x;
   }
 
   // 矩形を描画する
