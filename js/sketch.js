@@ -24,7 +24,7 @@ class Gen {
     for(let i=0; i<t.cells.length; i++) {
       
       // 現世代の添字iのセルの、回りにある生きたセルの数をLとする
-      let L = t.livesAround(t.indexToXy(i));
+      let L = t.livesAround(...t.indexToXy(i));
 
       if (t.cells[i] === 0) {
         // 現世代で死んでいるセルは3個の生きたセルに囲まれてるときだけ誕生（復活？）する
@@ -37,7 +37,6 @@ class Gen {
         n.cells[i] = (L === 2 || L === 3) ? 1 : 0;
       }
     }
-
     return n;
   }
 
@@ -46,7 +45,7 @@ class Gen {
     let L = 0;
     // (a,b)の位置にあるセルの生死を調べて生きているセルの合計を取る
     for(let a=x-1; a<=y+1; a++) {
-      for(let a=x-1; a<=y+1; a++) {
+      for(let b=x-1; b<=y+1; b++) {
 
         let i = this.xyToIndex(a,b);
         // L は生きてるセルを数えるための変数
@@ -56,9 +55,8 @@ class Gen {
     }
     // 囲まれた中央のセルもLに影響してしまうので調整
     L -= this.cells[this.xyToIndex(x,y)];
-    return
+    return L;
   }
-
 
   // 座標から添字に変換する関数
   xyToIndex(x,y) {
@@ -92,7 +90,7 @@ class Gen {
       let [x,y] = this.indexToXy(i);
 
       // ひとつのセルのキャンバス上での幅を定義
-      let w = height/8;
+      let w = height/sqrt(this.cells.length);
 
       // セルが生きているところだけ描画する
       if (c === 1) {
