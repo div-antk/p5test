@@ -21,7 +21,11 @@ class Gen {
     // 次世代
     let n = new Gen();
 
-    for(let i < t.cells.length; i++) {
+    for(let i=0; i<t.cells.length; i++) {
+      
+      // 現世代の添字iのセルの、回りにある生きたセルの数をLとする
+      let L = t.livesAround()
+
       if (t.cells[i] === 0) {
         // 現世代で死んでいるセルは……
 
@@ -40,10 +44,16 @@ class Gen {
     // (a,b)の位置にあるセルの生死を調べて生きているセルの合計を取る
     for(let a=x-1; a<=y+1; a++) {
       for(let a=x-1; a<=y+1; a++) {
-        
 
+        let i = this.xyToIndex(a,b);
+        // L は生きてるセルを数えるための変数
+        // 座標が範囲内かつセルが生きてる場合だけLを増やす
+        L += (i === -1) ? 0 : this.cells[i];
       }
     }
+    // 囲まれた中央のセルもLに影響してしまうので調整
+    L -= this.cells[this.xyToIndex(x,y)];
+    return
   }
 
 
